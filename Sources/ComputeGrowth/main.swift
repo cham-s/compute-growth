@@ -42,8 +42,8 @@ func printResult(linear: FunctionData,
     
     var year = startingYear
     
+    printHeader()
 
-    
     for i in (0...Int.max) {
         let linearComponent = yearlyValue(from: linear, and: i)
         let exponentialComponent = yearlyValue(from: exponential, and: i)
@@ -63,4 +63,4 @@ let linear = FunctionData(initialValue: 5, growth: 11, type: .linear)
 let exponential = FunctionData(initialValue: 2, growth: 3, type: .exponential)
 let startingYear = 1
 
-printResult(linear: linear, exponential: exponential)
+printResult(linear: linear, exponential: exponential, startingYear: startingYear)
