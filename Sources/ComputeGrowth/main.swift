@@ -6,23 +6,23 @@ enum Type {
 
 struct FunctionData {
     
-    var initialValue = 0
-    var growth = 0
+    var initialValue = 0.0
+    var growth = 0.0
     var type: Type
     
-    init(initialValue: Int, growth: Int, type: Type) {
+    init(initialValue: Double, growth: Double, type: Type) {
         self.initialValue = initialValue
         self.growth = growth
         self.type = type
     }
 }
 
-func yearlyValue(from data: FunctionData,and year: Int) -> Int {
+func yearlyValue(from data: FunctionData,and year: Int) -> Double {
     switch data.type {
     case .linear:
-        return data.initialValue + data.growth * year
+        return data.initialValue + data.growth * Double(year)
     case .exponential:
-        return data.initialValue * Int(pow(Double(data.growth), Double(year)))
+        return data.initialValue * pow(data.growth, Double(year))
     }
 }
 
@@ -50,7 +50,7 @@ func printResult(linear: FunctionData,
         let linearComponent = yearlyValue(from: linear, and: index)
         let exponentialComponent = yearlyValue(from: exponential, and: index)
         
-        print(String(format: "| %-12d | %-12d | %-12d |", year,
+        print(String(format: "| %-12d | %-12.2f | %-12.2f |", year,
                      linearComponent,
                      exponentialComponent))
         if linearComponent < exponentialComponent {
