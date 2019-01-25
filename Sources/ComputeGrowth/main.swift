@@ -29,7 +29,8 @@ func yearlyValue(from data: FunctionData,and year: Int) -> Int {
 
 // TODO: refactor obviously
 func printHeader() {
-    print(String(format: "| % 12@ | % 12@ | % 12@ |\n%@",
+    print(String(format: "%@\n| % 12@ | % 12@ | % 12@ |\n%@",
+                 String(repeating: "-", count: 12 * 3 + 4 + 6),
                  "x".padding(toLength: 12, withPad: " ", startingAt: 0),
                  "linear".padding(toLength: 12, withPad: " ", startingAt: 0),
                  "exponential".padding(toLength: 12, withPad: " ", startingAt: 0),
@@ -41,21 +42,23 @@ func printResult(linear: FunctionData,
                  startingYear: Int) {
     
     var year = startingYear
+    var index = 0
     
     printHeader()
-
-    for i in (0...Int.max) {
-        let linearComponent = yearlyValue(from: linear, and: i)
-        let exponentialComponent = yearlyValue(from: exponential, and: i)
-        
-        guard linearComponent > exponentialComponent else {
-            return
-        }
+    
+    while true {
+        let linearComponent = yearlyValue(from: linear, and: index)
+        let exponentialComponent = yearlyValue(from: exponential, and: index)
         
         print(String(format: "| %-12d | %-12d | %-12d |", year,
                      linearComponent,
                      exponentialComponent))
-        year += 1
+        if linearComponent < exponentialComponent {
+            break
+        }
+        
+        index +=  1
+        year +=  1
     }
 }
 
